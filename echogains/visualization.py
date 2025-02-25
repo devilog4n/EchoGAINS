@@ -32,7 +32,7 @@ def create_visualization(image, segmentation, labels=None, colors=None, remove_o
     '''
     image_rescaled = (image - np.min(image)) / (np.max(image) - np.min(image)) * 255
     if labels is None:
-        labels = [0, 1, 2, 3, 4, 5, 6, 7]
+        labels = [1, 2, 3, 4, 5, 6, 7]
     if colors is None:
         colors = np.array([(1, 0, 0), (0, 0, 1), (0, 1, 0), (1, 1, 0), (0, 1, 1), (1, 0, 1), (1, 1, 1),
                            (0.55, 0.27, 0.07), (1, 0.55, 0)])
