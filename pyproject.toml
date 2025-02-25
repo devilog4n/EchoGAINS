@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "echogains"
+version = "0.1.1"
+description = "Echo Generative Augmentation of Images for Nicer Segmentation"
+authors = ["Gilles Van De Vyver <gillesvandevyver@hotmail.be>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+numpy = ">=1.19"
+tqdm = ">=4.0"
+huggingface_hub = ">=0.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
