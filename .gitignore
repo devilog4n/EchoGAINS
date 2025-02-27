@@ -10,3 +10,12 @@ echogains/__pycache__/
 tutorial/local_data
 
 tutorial/local_data/
+
+echogains/models/
+
+
+*.pyc
+
+echogains/RePaint/guided_diffusion/__pycache__/
+
+echogains/RePaint/utils/__pycache__/

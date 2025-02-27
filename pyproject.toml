@@ -7,11 +7,13 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.7"
-numpy = ">=1.19"
+numpy = ">=2.0"
 tqdm = ">=4.0"
 huggingface_hub = ">=0.8.0"
 scikit-image = ">=0.20"
 opencv-python = ">=4.9"
+torch = ">=1.10"
+blobfile = ">=0.1.0"
 
 
 [build-system]
