@@ -52,3 +52,4 @@ def run_repaint(conf):
     conf_arg = conf_mgt.conf_base.Default_Conf()
     conf_arg.update(conf)
     main(conf_arg)
+

@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import skimage
 import cv2
@@ -30,6 +29,7 @@ def extend_image(image, nb_rows_to_add, preserve_square=True):
         new_image = np.zeros((new_depth, new_depth))
         new_image[:, padding_amount:padding_amount + original_shape[1]] = new_image_rectangular
     return new_image
+
 
 def get_top_padding(sector):
     """
@@ -103,6 +103,7 @@ def resize_label(label_mask, new_size, nb_labels=4):
 
     return reference_resized
 
+
 def resize_annotated_bmode(bmode, reference_mask, new_size, nb_labels=4):
     """
     Resize the bmode and the reference mask to the new size without interpolation artifacts
@@ -123,9 +124,9 @@ def resize_annotated_bmode(bmode, reference_mask, new_size, nb_labels=4):
     reference_resized = reference_resized.astype(np.uint8)
     return bmode_resized, reference_resized
 
-def get_repaint_input_depth_increase(bmode, reference_mask, original_sector, depth_increase, isotropic=False):
+
+def get_repaint_input_depth_increase(bmode, reference_mask, depth_increase):
     """
-    TODO: update docstring
     Extend the bmode and reference mask, resize them, and compute the repaint mask
     for a depth increase repaint augmentation
     :param bmode: np.array with shape (nb_rows, nb_columns)
@@ -134,12 +135,10 @@ def get_repaint_input_depth_increase(bmode, reference_mask, original_sector, dep
         The reference mask.
     :param depth_increase: int
         The number of rows to add to the bottom of the image.
-    :param isotropic: bool
-        Whether to adjust padding isotropically after resizing.
     :param border_thickness: int
         The thickness of the border for the repaint mask.
     :return: tuple of 2 np.arrays with shape (256, 256)
-        Resized bmode, resized reference mask
+        bmode, reference mask
     """
     if not bmode.shape == reference_mask.shape:
         raise ValueError('bmode and reference mask must have the same shape')
@@ -149,13 +148,10 @@ def get_repaint_input_depth_increase(bmode, reference_mask, original_sector, dep
     reference_mask_extended = extend_image(reference_mask, depth_increase)
 
     # Resize the extended bmode and reference mask back to the original size
-    bmode_resized, reference_resized = resize_annotated_bmode(bmode_extended, reference_mask_extended, shape)
+    bmode, reference = resize_annotated_bmode(bmode_extended, reference_mask_extended, shape)
 
-    if isotropic:
-        nb_top_padding_rows = get_top_padding(original_sector)
-        bmode_resized = adjust_padding(bmode_resized, nb_top_padding_rows)
-        reference_resized = adjust_padding(reference_resized, nb_top_padding_rows)
-    return bmode_resized, reference_resized
+    return bmode, reference
+
 
 def get_repaint_mask(image, border_thickness=2):
     """
@@ -187,6 +183,19 @@ def save_as_image(np_array,path):
 
 
 def rotate_reference(reference_mask, rotation, center, nb_labels = 4):
+    """
+    Rotate the reference mask label by label to avoid interpolation artifacts
+    :param reference_mask: np.array with shape (nb_rows, nb_columns)
+        the reference mask to rotate
+    :param rotation: float
+        the rotation angle in degrees
+    :param center: tuple with 2 ints
+        the center of the rotation
+    :param nb_labels: int
+        the number of labels in the reference mask
+    :return: np.array with shape (nb_rows, nb_columns)
+        the rotated reference mask
+    """
     # rotate each label separately to avoid interpolation artifacts
     if len(reference_mask.shape) == 3: # one-hot encoded
         raise NotImplementedError("Rotation for one-hot encoded reference mask is not implemented")
@@ -201,10 +210,18 @@ def rotate_reference(reference_mask, rotation, center, nb_labels = 4):
     return result
 
 
-
-
-
 def get_repaint_input_rotation(bmode, reference_mask, rotation):
+    """
+    Rotate the bmode and reference mask around the top middle point
+    :param bmode: np.array with shape (nb_rows, nb_columns)
+        the bmode image
+    :param reference_mask: np.array with shape (nb_rows, nb_columns)
+        the reference mask
+    :param rotation: float
+        the rotation angle in degrees
+    :return: tuple of 2 np.arrays with shape (nb_rows, nb_columns)
+        the rotated bmode and reference mask
+    """
     # rotate the bmode and reference mask around top middle point
     rotation_cetner = (bmode.shape[1]//2, 0)
     bmode_rotated = skimage.transform.rotate(bmode, rotation, center=rotation_cetner)
@@ -213,6 +230,17 @@ def get_repaint_input_rotation(bmode, reference_mask, rotation):
 
 
 def get_repaint_input_sector_width(bmode, reference_mask, width_factor):
+    """
+    Resize the bmode and reference mask to the original width * width_factor
+    :param bmode: np.array with shape (nb_rows, nb_columns)
+        the bmode image
+    :param reference_mask: np.array
+        the reference mask
+    :param width_factor: float
+        the factor to resize the image width by
+    :return: tuple of 2 np.arrays with shape (nb_rows, nb_columns)
+        the resized bmode and reference mask
+    """
     original_shape = bmode.shape
     # first resize the image to original_width * random_squeeze_factor
     new_width = int(bmode.shape[1] * width_factor)
@@ -241,7 +269,19 @@ def get_repaint_input_sector_width(bmode, reference_mask, width_factor):
 
     return bmode_resized, reference_resized
 
+
 def translate_reference(reference_mask, translation, nb_labels=4):
+    """
+    Translate the reference mask label by label to avoid interpolation artifacts
+    :param reference_mask: np.array with shape (nb_rows, nb_columns)
+        the reference mask to translate
+    :param translation: tuple with 2 ints
+        the translation in x and y direction
+    :param nb_labels: int
+        the number of labels in the reference mask
+    :return: np.array with shape (nb_rows, nb_columns)
+        the translated reference mask
+    """
     # translate reference mask label by label to avoid interpolation artifacts
     x_translation, y_translation = translation
     result = np.zeros(reference_mask.shape)
@@ -261,7 +301,19 @@ def translate_reference(reference_mask, translation, nb_labels=4):
         raise ValueError(f'reference_mask has unexpected shape {reference_mask.shape}')
     return result
 
+
 def get_repaint_input_translation(bmode, reference_mask, random_translation):
+    """
+    Translate the bmode and reference mask
+    :param bmode: np.array with shape (nb_rows, nb_columns)
+        the bmode image
+    :param reference_mask: np.array with shape (nb_rows, nb_columns)
+        the reference mask
+    :param random_translation: tuple with 2 ints
+        the translation in x and y direction
+    :return: tuple of 2 np.arrays with shape (nb_rows, nb_columns)
+        the translated bmode and reference mask
+    """
     # translate the image and reference mask
     x_translation, y_translation = random_translation
     bmode_translated = skimage.transform.warp(bmode, skimage.transform.AffineTransform(
@@ -335,3 +387,4 @@ def create_segmentation_visualization(image, segmentation, labels=None, colors=N
     if remove_oos:
         result[oos_mask] = 0 # set out of sector parts to black
     return (result * 255).astype(np.uint8)
+

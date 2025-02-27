@@ -79,3 +79,4 @@ def create_visualization(image, segmentation, labels=None, colors=None, remove_o
     if remove_oos:
         result[oos_mask] = 0 # set out of sector parts to black
     return (result * 255).astype(np.uint8)
+
