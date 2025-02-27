@@ -14,7 +14,7 @@ def create_visualization(image, segmentation, labels=None, colors=None, remove_o
         ndarray with shape (width,height) containing the segmentation (not one-hot encoded)
     :param labels: list of int, optional
         the labels of the segments to visualize
-        If not specified, default value is [0, 1, 2, 3, 4, 5, 6, 7]
+        If not specified, default value is [1, 2, 3, 4, 5, 6, 7]
     :param colors: ndarray, optional
         ndarray with shape (n,3) containing the colors to use for the segments
         If not specified, default value is np.array([(1,0,0),(0,0,1),(0,1,0),(1,1,0),(0,1,1),(1,0,1),(1,1,1),
