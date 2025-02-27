@@ -28,7 +28,7 @@ import torch as th
 
 from collections import defaultdict
 
-from guided_diffusion.scheduler import get_schedule_jump
+from echogains.RePaint.guided_diffusion.scheduler import get_schedule_jump
 import math
 
 def betas_for_alpha_bar(num_diffusion_timesteps, alpha_bar, max_beta=0.999):

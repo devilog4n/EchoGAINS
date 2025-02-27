@@ -23,9 +23,9 @@ import os
 import argparse
 import torch as th
 import torch.nn.functional as F
-import conf_mgt
-from utils import yamlread
-from guided_diffusion import dist_util
+import echogains.RePaint.conf_mgt as conf_mgt
+from echogains.RePaint.utils import yamlread
+from echogains.RePaint.guided_diffusion import dist_util
 
 # Workaround
 try:
@@ -35,7 +35,7 @@ except:
     pass
 
 
-from guided_diffusion.script_util import (
+from echogains.RePaint.guided_diffusion.script_util import (
     NUM_CLASSES,
     model_and_diffusion_defaults,
     classifier_defaults,
@@ -182,8 +182,6 @@ def main(conf: conf_mgt.Default_Conf):
 
 
 if __name__ == "__main__":
-    # set visible gpu to 1
-    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--conf_path', type=str, required=False, default=None)

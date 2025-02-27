@@ -15,4 +15,4 @@
 # This repository was forked from https://github.com/openai/guided-diffusion, which is under the MIT license
 
 
-from conf_mgt.conf_base import Default_Conf
+from echogains.RePaint.conf_mgt.conf_base import Default_Conf
