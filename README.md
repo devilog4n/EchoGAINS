@@ -1,11 +1,6 @@
 # Echo Generative Augmentation using INpainting Synthesis (EchoGAINS) 💪
 
 ![Figure 1](figs/figure1.png)
-<p style="color:gray; font-size: 0.8em; text-align: center;">
-EchoGAINS creates many variations of a labelled image without affecting annotation quality
-</p>
-
-
 
 
 
@@ -34,17 +29,14 @@ pip install .
 ```
 
 ## Main features
-
-![Figure 2](figs/figure2.png)
-<p style="color:gray; font-size: 0.8em; text-align: center;">
+EchoGAINS creates many variations of a labelled image without affecting annotation quality
 An image and it's label are transformed and the missing parts are inpainted to create a
 realistic sector again.
-</p>
+![Figure 2](figs/figure2.png)
+
+A segmentation model trained on the augmented dataset is significantly more robust.
 
 ![Figure 3](figs/figure3.png)
-<p style="color:gray; font-size: 0.8em; text-align: center;">
-A segmentation model trained on the augmented dataset is significantly more robust.
-</p>
 
 
 ## License and Attribution
