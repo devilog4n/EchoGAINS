@@ -4,7 +4,7 @@ import os
 import echogains.RePaint.conf_mgt as conf_mgt
 from echogains.RePaint.test import main
 
-def load_default_config(model_name,keep_path,masks_path,output_path):
+def load_default_config(model_name,keep_path,masks_path,buffer_path,output_path):
     '''
     Load the default config and fill in the necessary fields for running RePaint inference with the specified model.
     Note that the default config assumes a certain architecture for the model.
@@ -16,17 +16,17 @@ def load_default_config(model_name,keep_path,masks_path,output_path):
         Path to the directory containing the transformed images with the pixels that are kept.
     :param masks_path: str
         Path to the directory containing the RePaint masks. This tells repaint which pixels to keep.
-    :param output_path: str
-        Path to the directory where the output images will be saved.
+    :param buffer_path: str
+        Path to the directory used for temporary storage during inference
     :return: dict
         The default config with the necessary fields filled in
     '''
     model_file_name = f"{model_name}.pt"
     DEFAULT_CONFIG['model_path'] = os.path.join(CONST.MODEL_DIR, model_file_name)
-    srs = os.path.join(output_path, "srs")
-    lrs = os.path.join(output_path, "lrs")
-    gts = os.path.join(output_path, "gts")
-    gt_keep_masks = os.path.join(output_path, "gt_keep_masks")
+    srs = output_path
+    lrs = os.path.join(buffer_path, "lrs")
+    gts = os.path.join(buffer_path, "gts")
+    gt_keep_masks = os.path.join(buffer_path, "gt_keep_masks")
 
     nb_keep_files = len(os.listdir(keep_path))
     nb_mask_files = len(os.listdir(masks_path))
