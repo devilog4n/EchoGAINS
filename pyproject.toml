@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "echogains"
-version = "0.1.1"
+version = "1.0.1"
 description = "Echo Generative Augmentation of Images for Nicer Segmentation"
 authors = ["Gilles Van De Vyver <gillesvandevyver@hotmail.be>"]
 readme = "README.md"
