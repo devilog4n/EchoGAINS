@@ -6,7 +6,10 @@
 
 ## Publication & Citation
 
-Academic publication to be announced.
+You should cite the following paper when using the code in this repository:
+
+Van De Vyver, Gilles, et al. "Generative augmentations for improved cardiac ultrasound segmentation using diffusion models." arXiv preprint arXiv:2502.20100 (2025).
+https://arxiv.org/abs/2502.20100
 
 Blog post: [https://gillesvandevyver.com/#/projects/generative-ai](https://gillesvandevyver.com/#/projects/generative-ai)
 
