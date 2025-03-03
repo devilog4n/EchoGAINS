@@ -44,7 +44,7 @@ A segmentation model trained on the augmented dataset is significantly more robu
 
 ## Demo
 A demo comparing the segmentation performance of a nnU-Net model trained on the original dataset and the augmented dataset is available at:
-[YouTube demo](hhttps://www.youtube.com/watch?v=kiuWaPJnLHU&ab_channel=GillesVanDeVyver)
+[YouTube demo](https://www.youtube.com/watch?v=kiuWaPJnLHU&ab_channel=GillesVanDeVyver)
 
 ## License and Attribution
 This project is an adaptation of the RePaint project, which itself is an adaptation from the Guided Diffusion project: 
