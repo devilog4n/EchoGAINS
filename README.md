@@ -54,6 +54,30 @@ This project, EchoGAINS, by Van De Vyver et al. (Norwegian University of Science
 - nnU-Net segmentation model trained on the augmented CAMUS dataset: https://huggingface.co/gillesvdv/nnU-Net_CAMUS_EchoGAINS
 
 
+## Training your own model
+- **Duffusion model**:
+
+The generative diffusion model in this work was trained using the guided-diffusion package:
+
+_Dhariwal, Prafulla, and Alexander Nichol. "Diffusion models beat gans on image synthesis." Advances in neural information processing systems 34 (2021): 8780-8794._
+
+You can follow the instructions in the guided-diffusion repository to train your own model.
+The pretrained model mentioned above was trained with the following parameters:
+```
+--image_size 256 --num_channels 64 --num_res_blocks 4 --learn_sigma True --diffusion_steps 4000 --noise_schedule cosine --lr 1e-4 --batch_size 32
+```
+
+
+- **Segmentation model**:
+
+The segmentation model was trained using nnU-Net:
+
+_Isensee, Fabian, et al. "nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation." Nature methods 18.2 (2021): 203-211._
+
+You can follow the instructions in the nnU-Net repository to train your own model.
+The pretrained model mentioned above was trained with the default parameters of nnU-Net.
+
+
 ## Contact
 
 Developer: <br />
