@@ -1,16 +1,3 @@
-A work in progress aiming testing performance in native iOS environment with CoreML model inferences in echocardiography on segmentation in cardiac ultrasound, utilizing for testing purposes the integration of the work by "Van De Vyver, Gilles, et al. "Generative augmentations for improved cardiac ultrasound segmentation using diffusion models." arXiv preprint arXiv:2502.20100 (2025).
-https://arxiv.org/abs/2502.20100."
-
-Original Repo README.md - From "https://github.com/GillesVanDeVyver/EchoGAINS" of the work by "Van De Vyver, Gilles, et al. "Generative augmentations for improved cardiac ultrasound segmentation using diffusion models." arXiv preprint arXiv:2502.20100 (2025). "
-
-> With also the contributions of:
-
-"Dhariwal, Prafulla, and Alexander Nichol. "Diffusion models beat gans on image synthesis." Advances in neural information processing systems 34 (2021): 8780-8794."
-
-"Lugmayr, Andreas, et al. "Repaint: Inpainting using denoising diffusion probabilistic models." Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2022."
-
-###
-
 # Echo Generative Augmentation using INpainting Synthesis (EchoGAINS) 🛜 💪
 
 ![Figure 1](figs/figure1.png)
